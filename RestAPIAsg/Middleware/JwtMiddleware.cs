@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestAPIAsg.Middleware
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
+   
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
