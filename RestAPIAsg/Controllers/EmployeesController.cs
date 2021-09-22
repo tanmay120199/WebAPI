@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using RestAPIAsg.EmployeeData;
@@ -26,7 +26,8 @@ namespace RestAPIAsg.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route ("GetEmployee")]
         public IActionResult GetEmployee(Guid id)
         {
             var employee = _employeeData.GetEmployee(id);
@@ -39,6 +40,7 @@ namespace RestAPIAsg.Controllers
         }
 
         [HttpPost]
+        [Route("AddEmployee")]
         public IActionResult AddEmployee(Employee employee)
         {
             if (!ModelState.IsValid)
@@ -46,12 +48,14 @@ namespace RestAPIAsg.Controllers
                 return BadRequest(ModelState);
             }
             Employee emp=_employeeData.AddEmployee(employee);
-            return CreatedAtAction("Get", new { id = emp.Id }, emp);
+            return Ok(emp);
+            //return CreatedAtAction("Get", new { id = emp.Id }, emp);
             //to return that the server has created(201) the request, we using Created()
             //return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + employee.Id, employee);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("DeleteEmployee")]
         public IActionResult DeleteEmployee(Guid id)
         {
             var employee = _employeeData.GetEmployee(id);
